@@ -6,48 +6,45 @@
 #    By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/15 18:05:54 by dzheng            #+#    #+#              #
-#    Updated: 2017/02/15 18:06:24 by dzheng           ###   ########.fr        #
+#    Updated: 2017/02/15 18:34:47 by dzheng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
-
-LIBNAME = libft.a
-LIBPATH = ./libft/
-
-OBJDIR = objs
-
-SRC = 	ft_ls.c ft_ls_front.c ft_ls_rec.c ft_ls_front_colors.c \
+CC = cc
+FLAGS = -Wall -Wextra -Werror
+SRCS = 	ft_ls.c ft_ls_front.c ft_ls_rec.c ft_ls_front_colors.c				\
 		ft_ls_back.c ft_ls_back_sort.c ft_ls_back_args.c
-SRCDIR = ./srcs/
-OBJ = $(SRC:.c=.o)
-
+PATH_SRC = ./srcs/
+SRC = $(addprefix ${PATH_SRC}, $(SRCS))
+LIB_PATH = ./libft/
+LIB = $(LIB_PATH)/libft.a
 CFLAGS = -Wall -Werror -Wextra
-CC = gcc
-RM = rm -rf
+
+#COLORS
+C_GOOD			=	"\033[32m"
+
+#MESSAGE
+SUCCESS			=	$(C_GOOD)SUCCESS$
 
 all : $(NAME)
 
-$(NAME) :
-	@make -C libft/ re
-	@echo "\t\033[33;32m'MAKE' ->\t\033[1;34m$(NAME)\033[0m :\tCompilation in progress..."
-	@gcc -o $(NAME) $(CFLAGS) -Ilibft/ -I. $(addprefix $(SRCDIR), $(SRC)) $(addprefix $(LIBPATH), $(LIBNAME))
-	@echo "\t\033[33;32m'MAKE' ->\t\033[1;34m$(NAME)\033[0m :\tLibrary compilation completed sucessfully !"
+$(NAME): 
+		@make -C ./libft/
+		@$(CC) $(FLAGS) $(SRC) -I. -I./libft/ $(LIB) -o $(NAME)
+		@echo "Compiling" [ $(NAME) ] $(SUCCESS)
 
-cc :
-	@echo "\t\033[33m'COMPILE NO FLAGS' ->\t\033[1;34m$(NAME)\033[0m :\tExecutable compilation in progress..."
-	@gcc -o $(NAME) -Ilibft/libft.h -Ift_ls.h $(addprefix $(SRCDIR), $(SRC)) $(addprefix $(LIBPATH), $(LIBNAME))
-	@echo "\t\033[33m'COMPILE NO FLAGS' ->\t\033[1;34m$(NAME)\033[0m :\tCompilation completed sucessfully !"
-clean :
-	@echo "\t\033[1;31m'CLEAN' ->\tDestruction\033[0m:\tfiles .o for the program \033[1;34m$(NAME)\033[0m"
-	@$(RM) $(OBJ)
-	@make -C libft/ clean
+cc:		
+		@$(CC) $(FLAGS) $(SRC) $(LIB) -o $(NAME)
+		./ft_ls -Rl
 
-fclean : clean
-	@$(RM) $(NAME)
-	@echo "\t\033[1;31m'FCLEAN' ->\tDestruction\033[0m\tof program \033[1;34m$(NAME)\033[0m"
-	@make -C libft/ fclean
+clean:
+		make -C ./libft/ clean
 
-re : fclean all
+fclean: clean
+		/bin/rm -f $(NAME)
+		make -C ./libft/ fclean
+
+re: fclean all
 
 .PHONY: all clean fclean re

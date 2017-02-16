@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+         #
+#    By: Champi <Champi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/15 18:05:54 by dzheng            #+#    #+#              #
-#    Updated: 2017/02/15 18:34:47 by dzheng           ###   ########.fr        #
+#    Updated: 2017/02/16 01:13:53 by Champi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = ft_ls
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 SRCS = 	ft_ls.c ft_ls_front.c ft_ls_rec.c ft_ls_front_colors.c				\
-		ft_ls_back.c ft_ls_back_sort.c ft_ls_back_args.c
+		ft_ls_back.c ft_ls_back_sort.c ft_ls_back_args.c					\
+		ft_ls_back_args_sort.c
 PATH_SRC = ./srcs/
 SRC = $(addprefix ${PATH_SRC}, $(SRCS))
 LIB_PATH = ./libft/
@@ -35,7 +36,7 @@ $(NAME):
 		@echo "Compiling" [ $(NAME) ] $(SUCCESS)
 
 cc:		
-		@$(CC) $(FLAGS) $(SRC) $(LIB) -o $(NAME)
+		@$(CC) $(FLAGS) $(SRC) -I. -I./libft/ $(LIB) -o $(NAME)
 		./ft_ls -Rl
 
 clean:

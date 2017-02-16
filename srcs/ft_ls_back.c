@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls_back.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Champi <Champi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 18:04:32 by dzheng            #+#    #+#             */
-/*   Updated: 2017/02/15 18:07:29 by dzheng           ###   ########.fr       */
+/*   Updated: 2017/02/16 01:13:50 by Champi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static void		modeguy(struct stat stats, char *mode)
 {
-	if (S_IFCHR >> 9 == (stats.st_mode >> 9))
+	if (S_ISCHR(stats.st_mode))
 		*mode++ = 'c';
-	else if (S_IFIFO >> 9 == (stats.st_mode >> 9))
+	else if (S_ISFIFO(stats.st_mode))
 		*mode++ = 'p';
-	else if (S_IFDIR >> 9 == (stats.st_mode >> 9))
+	else if (S_ISDIR(stats.st_mode))
 		*mode++ = 'd';
-	else if (S_IFLNK >> 9 == (stats.st_mode >> 9))
+	else if (S_ISLNK(stats.st_mode))
 		*mode++ = 'l';
-	else if (S_IFBLK >> 9 == (stats.st_mode >> 9))
+	else if (S_ISBLK(stats.st_mode))
 		*mode++ = 'b';
-	else if (S_IFSOCK >> 9 == (stats.st_mode >> 9))
+	else if (S_ISSOCK(stats.st_mode))
 		*mode++ = 's';
-	else
+	else if (S_ISREG(stats.st_mode))
 		*mode++ = '-';
 	*mode++ = (stats.st_mode & S_IRUSR ? 'r' : '-');
 	*mode++ = (stats.st_mode & S_IWUSR ? 'w' : '-');
@@ -36,7 +36,9 @@ static void		modeguy(struct stat stats, char *mode)
 	*mode++ = (stats.st_mode & S_IXGRP ? 'x' : '-');
 	*mode++ = (stats.st_mode & S_IROTH ? 'r' : '-');
 	*mode++ = (stats.st_mode & S_IWOTH ? 'w' : '-');
-	*mode++ = (stats.st_mode & S_IXOTH ? 'x' : '-');
+	*mode = (stats.st_mode & S_IXOTH ? 'x' : '-');
+	if (stats.st_mode & S_ISVTX)
+		*mode = 't';
 }
 
 static int		fill_assist(t_pls *info, const char *newpath)

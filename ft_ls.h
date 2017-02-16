@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Champi <Champi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 18:05:59 by dzheng            #+#    #+#             */
-/*   Updated: 2017/02/15 18:26:49 by dzheng           ###   ########.fr       */
+/*   Updated: 2017/02/16 00:46:16 by Champi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ void				ft_ls_rec(const t_list *lst, const char *path, \
 t_list				*ft_ls_sort(t_list *lst, const char *flags);
 void				ft_ls_args(int ac, char **av, int first, const char *flags);
 int					ft_ls_error_file_dir(const char *path);
-t_list				*ft_ls_listsort(t_list *lst, int (*cmp)(void*, void*));
 long				errors(const int error, const char *letter);
+void				free_lst(void *inf, size_t size);
 int					ft_ls_colors(const t_pls *info, const char *flags);
+t_list				*ft_ls_back_args_sort(t_list *lst, const char *flags);
 
 # define MODE 0
 # define LNKS 1

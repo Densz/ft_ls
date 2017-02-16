@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls_front.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Champi <Champi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 18:04:47 by dzheng            #+#    #+#             */
-/*   Updated: 2017/02/15 18:08:26 by dzheng           ###   ########.fr       */
+/*   Updated: 2017/02/16 00:40:51 by Champi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ static void			print_path(const char *path, const t_list *lst, \
 	}
 	else if (flags)
 	{
-		if (ft_strchr(flags, 'l'))
+		if (ft_strchr(flags, 'l') && path)
 		{
-			if (((t_pls*)(lst->content))->not_a_dir == 0 && path)
+			if (((t_pls*)(lst->content))->not_a_dir == 0)
 				ft_printf("total %lld\n", total_block_date_time(lst, 0, 0));
 			padding_tool(lst, padd);
 		}
@@ -95,7 +95,7 @@ static void			list_view(const t_pls *info, const uint *padd, \
 	char				*date;
 
 	date = NULL;
-	if (info->own && info->group)
+	if (info->own && info->group && info->name)
 	{
 		total_block_date_time(0, info->date, &date);
 		ft_printf("%-*s %*d %-*s %-*s ", padd[MODE] + 1, info->mode, \

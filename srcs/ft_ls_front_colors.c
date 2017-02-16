@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls_front_colors.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Champi <Champi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 18:04:47 by dzheng            #+#    #+#             */
-/*   Updated: 2017/02/15 18:08:38 by dzheng           ###   ########.fr       */
+/*   Updated: 2017/02/16 00:41:26 by Champi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			ft_fix(const t_pls *info, const uint *padd, char **color, \
 
 int				ft_ls_colors(const t_pls *info, const char *flags)
 {
-	if (!ft_strchr(flags, 'G') || info->mode[0] == '-')
+	if (!ft_strchr(flags, 'G'))
 		return (0);
 	if (info->mode[0] == 'd')
 		return (4);

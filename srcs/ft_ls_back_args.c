@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls_back_args.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Champi <Champi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 18:07:44 by dzheng            #+#    #+#             */
-/*   Updated: 2017/02/15 18:07:50 by dzheng           ###   ########.fr       */
+/*   Updated: 2017/02/16 00:35:57 by Champi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,24 @@ int				ft_ls_error_file_dir(const char *path)
 	return (1);
 }
 
-static int		sort_args(void *a, void *b)
-{
-	int			type_a;
-	int			type_b;
-
-	type_a = ft_ls_error_file_dir((char*)a);
-	type_b = ft_ls_error_file_dir((char*)b);
-	if (type_a > type_b)
-		return (0);
-	else if (type_a < type_b)
-		return (1);
-	else if (ft_strcmp((char*)a, (char*)b) > 0)
-		return (0);
-	return (1);
-}
-
 static void		free_char(void *str, size_t size)
 {
 	(void)size;
 	ft_memdel(&str);
+}
+
+static void		ls_caller_call(const t_list *lst, t_list *files, \
+				const char *flags, int args)
+{
+	if (files)
+	{
+		ft_ls_front(ft_ls_sort(files, flags), flags, 0, args);
+		ft_lstdel(&files, &free_lst);
+	}
+	else
+	{
+		ft_ls((char*)(lst->content), flags, args);
+	}
 }
 
 static void		ls_caller(const t_list *lst, const char *flags, int args)
@@ -71,8 +69,7 @@ static void		ls_caller(const t_list *lst, const char *flags, int args)
 				else
 					break ;
 			}
-		(files ? ft_ls_front(files, flags, 0, args) :
-		ft_ls((char*)(lst->content), flags, args));
+		ls_caller_call(lst, files, flags, args);
 		lst = (files ? lst : lst->next);
 	}
 }
@@ -94,7 +91,7 @@ void			ft_ls_args(int ac, char **av, int i, const char *flags)
 			ft_lstaddend(&lst, tmp);
 		i++;
 	}
-	lst = ft_lstselectsort(lst, &sort_args);
+	lst = ft_ls_back_args_sort(lst, flags);
 	ls_caller(lst, flags, ft_lstsize(lst));
 	ft_lstdel(&lst, &free_char);
 }

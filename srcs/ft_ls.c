@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Champi <Champi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 18:04:32 by dzheng            #+#    #+#             */
-/*   Updated: 2017/02/15 18:07:12 by dzheng           ###   ########.fr       */
+/*   Updated: 2017/02/16 00:27:52 by Champi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ long			errors(int error, const char *letter)
 	return (0);
 }
 
-static void		free_lst(void *inf, size_t size)
+void			free_lst(void *inf, size_t size)
 {
 	t_pls		*info;
 

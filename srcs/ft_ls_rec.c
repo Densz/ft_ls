@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls_rec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dzheng <dzheng@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Champi <Champi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/15 18:04:47 by dzheng            #+#    #+#             */
-/*   Updated: 2017/02/15 18:08:55 by dzheng           ###   ########.fr       */
+/*   Updated: 2017/02/16 00:43:38 by Champi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,4 @@ void			ft_ls_rec(const t_list *lst, const char *path, \
 		err_patch(dirp, newpath);
 		lst = lst->next;
 	}
-}
-
-t_list			*ft_ls_listsort(t_list *lst, int (*cmp)(void*, void*))
-{
-	t_list			*cur1;
-	t_list			*cur2;
-	t_list			tmp;
-
-	cur1 = lst;
-	while (cur1)
-	{
-		cur2 = cur1->next;
-		while (cur2)
-		{
-			if (cmp(cur1->content, cur2->content) != 1)
-			{
-				tmp.content = cur1->content;
-				cur1->content = cur2->content;
-				cur2->content = tmp.content;
-			}
-			cur2 = cur2->next;
-		}
-		cur1 = cur1->next;
-	}
-	return (lst);
 }
